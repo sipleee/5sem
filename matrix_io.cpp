@@ -6,10 +6,10 @@
 
 using namespace std;
 
-double** allocate_matrix(int n) {
+double** allocate_matrix(int n, int m) {
     double** matrix = new double*[n];
     for (int i = 0; i < n; i++) {
-        matrix[i] = new double[n];
+        matrix[i] = new double[m];
     }
     return matrix;
 }
@@ -28,7 +28,7 @@ double** read_matrix_from_file(const char* filename, int n) {
         return nullptr;
     }
     
-    double** matrix = allocate_matrix(n);
+    double** matrix = allocate_matrix(n, n);
     
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -59,7 +59,7 @@ double f(int k, int n, int i, int j) {
 }
 
 double** init_matrix_by_formula(int k, int n) {
-    double** matrix = allocate_matrix(n);
+    double** matrix = allocate_matrix(n, n);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             matrix[i][j] = f(k, n, i + 1, j + 1);
@@ -81,9 +81,9 @@ void print_matrix(double** matrix, int n, int m) {
 
 double matrix_norm(double** A, int n) {
     double norm = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i= 0; i < n;i++) {
         double row_sum = 0;
-        for (int j = 0; j < n; j++) {
+        for (int j= 0; j< n; j++){
             row_sum += abs(A[i][j]);
         }
         if (row_sum > norm) norm = row_sum;
@@ -91,8 +91,26 @@ double matrix_norm(double** A, int n) {
     return norm;
 }
 
+void matrix_norm2(double** A, double* a, int n) {
+    for (int i = 0; i < n;i++) {
+        for (int j = 0; j < n; j++) {
+            a[i] += abs(A[i][j]);
+        }
+    }
+}
+
+double matrix_norm3(double* a, int n) {
+    double row_sum = a[0];
+    for (int i = 0; i < n; i++) {
+        if (a[i] > row_sum) row_sum = a[i];
+    }
+    return row_sum;
+}
+
+
 double residual_norm_inverse(double** A, double** A_inv, int n) {
-    double** temp = allocate_matrix(n);
+    double** temp = allocate_matrix(n, n);
+    double* a = new double[n];
     
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -107,7 +125,8 @@ double residual_norm_inverse(double** A, double** A_inv, int n) {
         temp[i][i] -= 1.0;
     }
     
-    double norm = matrix_norm(temp, n);
+    matrix_norm2(temp, a, n);
+    double norm = matrix_norm3(a, n);
     free_matrix(temp, n);
     return norm;
 }
