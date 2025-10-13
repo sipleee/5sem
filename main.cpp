@@ -40,10 +40,11 @@ int main(int argc, char* argv[]) {
     print_matrix(A, n, m);
     cout << endl;
 
-    double** A_inv = allocate_matrix(n);
+    double** A_inv = allocate_matrix(n, n);
+    double** aug = allocate_matrix(n, 2 * n);
 
     clock_t start = clock();
-    bool success = jordan_inverse(A, A_inv, n);
+    bool success = jordan_inverse(A, A_inv, aug, n);
     clock_t end = clock();
 
     if (!success) {
