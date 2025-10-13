@@ -1,17 +1,13 @@
 #include <iostream>
 #include <cmath>
+#include <cstring>
 #include "solver.h"
 
 using namespace std;
 
-bool jordan_inverse(double** A, double** A_inv, int n) {
-    double** aug = new double* [n];
+bool jordan_inverse(double** A, double** A_inv, double** aug, int n) {
     for (int i = 0; i < n; i++) {
-        aug[i] = new double[2 * n];
-
-        for (int j = 0; j < n; j++) {
-            aug[i][j] = A[i][j];
-        }
+        memcpy(aug[i], A[i], n * sizeof(double));
 
         for (int j = n; j < 2 * n; j++) {
             aug[i][j] = (j - n == i) ? 1.0 : 0.0;
