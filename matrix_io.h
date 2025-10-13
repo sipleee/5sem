@@ -1,7 +1,7 @@
 #ifndef MATRIX_IO_H
 #define MATRIX_IO_H
 
-double** allocate_matrix(int n);
+double** allocate_matrix(int n, int m);
 void free_matrix(double** matrix, int n);
 double** read_matrix_from_file(const char* filename, int n);
 double** init_matrix_by_formula(int k, int n);
