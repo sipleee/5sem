@@ -63,6 +63,8 @@ int main(int argc, char* argv[]) {
 
     free_matrix(A, n);
     free_matrix(A_inv, n);
+    free_matrix(aug, n);
 
     return 0;
 }
+
