@@ -61,10 +61,7 @@ bool jordan_inverse(double** A, double** A_inv, double** aug, int n) {
         }
     }
 
-    for (int i = 0; i < n; i++) {
-        delete[] aug[i];
-    }
-    delete[] aug;
+    
 
     return true;
 }
