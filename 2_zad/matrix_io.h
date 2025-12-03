@@ -1,0 +1,12 @@
+#ifndef MATRIX_IO_H
+#define MATRIX_IO_H
+
+double** allocate_matrix(int n, int m);
+void free_matrix(double** matrix, int n);
+double** read_matrix_from_file(const char* filename, int n);
+double** init_matrix_by_formula(int k, int n, int num_threads = 1);
+void print_matrix(double** matrix, int n, int m);
+double matrix_norm(double** A, int n, int num_threads = 1);
+double residual_norm_inverse(double** A, double** A_inv, int n, int num_threads = 1);
+
+#endif
