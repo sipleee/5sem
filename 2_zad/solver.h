@@ -3,7 +3,6 @@
  
 #include <pthread.h>
  
-// Структура для передачи данных в потоки
 struct ThreadData {
     double** aug;
     int n;
