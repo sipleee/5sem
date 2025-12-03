@@ -7,7 +7,6 @@
 
 using namespace std;
 
-// Структура для передачи данных в потоки
 struct MatrixThreadData {
     double** matrix;
     int k;
@@ -85,7 +84,6 @@ double f(int k, int n, int i, int j) {
     }
 }
 
-// Функция для инициализации части матрицы
 void* init_matrix_part(void* arg) {
     MatrixThreadData* data = (MatrixThreadData*)arg;
 
@@ -140,7 +138,6 @@ void print_matrix(double** matrix, int n, int m) {
     }
 }
 
-// Функция для вычисления частичной нормы
 void* compute_partial_norm(void* arg) {
     NormThreadData* data = (NormThreadData*)arg;
     data->partial_norm = 0;
@@ -190,7 +187,6 @@ double matrix_norm(double** A, int n, int num_threads) {
     return norm;
 }
 
-// Функция для вычисления части матричного произведения
 void* compute_partial_product(void* arg) {
     ResidualThreadData* data = (ResidualThreadData*)arg;
 
@@ -232,7 +228,6 @@ double residual_norm_inverse(double** A, double** A_inv, int n, int num_threads)
         pthread_join(threads[t], nullptr);
     }
 
-    // Вычитание единичной матрицы
     for (int i = 0; i < n; i++) {
         temp[i][i] -= 1.0;
     }
